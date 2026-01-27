@@ -1,0 +1,22 @@
+<header class="flex justify-between items-center px-12">
+  <img src="images/info-logo.png" alt="Logo da Info" class="w-24 cursor-pointer" [routerLink]="['']">
+
+  <div class="text-white flex gap-8 font-semibold text-xl">
+    <span
+      class="cursor-pointer transition-all duration-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500"
+      [routerLink]="['/']"
+      routerLinkActive="text-blue-500"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      HOME
+    </span>
+
+    <span
+      class="cursor-pointer transition-all duration-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500"
+      [routerLink]="['/registry']"
+      routerLinkActive="text-blue-500"
+    >
+      CADASTRO
+    </span>
+  </div>
+</header>
