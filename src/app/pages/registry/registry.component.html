@@ -1,1 +1,114 @@
-<p>registry works!</p>
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="d-flex flex-column gap-2 mx-3 mx-sm-4 vehicle-form"
+>
+  <h4 class="text-center"> {{ isEditting ? 'Editar veículo' : 'Cadastrar veículo' }}</h4>
+
+  <div class="row g-3 justify-content-center">
+    <div class="col-12 col-md-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Marca</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Insira a marca"
+          formControlName="brand"
+          [matAutocomplete]="brandAutocomplete"
+        >
+        <mat-autocomplete #brandAutocomplete="matAutocomplete">
+          @for (option of filteredBrands | async; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Modelo</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Insira o modelo"
+          formControlName="model"
+          [matAutocomplete]="modelAutocomplete"
+        >
+        <mat-autocomplete #modelAutocomplete="matAutocomplete">
+          @for (option of filteredModels | async; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Ano</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Insira o ano"
+          formControlName="year"
+          mask="0000"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Placa</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Insira a placa"
+          formControlName="plateNumber"
+          mask="SSS-0A00"
+          [inputTransformFn]="inputTransformFn"
+          [outputTransformFn]="outputTransformFn"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>RENAVAM</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Insira o RENAVAM"
+          formControlName="renavam"
+          mask="00000000000"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Chassi</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Insira o chassi"
+          formControlName="vin"
+          mask="AAAAAAAAAAAAAAAAA"
+          [inputTransformFn]="inputTransformFn"
+          [outputTransformFn]="outputTransformFn"
+        >
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <button mat-flat-button class="col-12 col-md-3">
+      <mat-icon fontIcon="check"></mat-icon>
+      Confirmar
+    </button>
+  </div>
+
+  @if (isLoadingSubmit) {
+    <mat-progress-bar
+      mode="indeterminate">
+    </mat-progress-bar>
+  }
+</form>

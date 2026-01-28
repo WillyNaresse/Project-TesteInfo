@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center mt-4">
+  <mat-icon class="fs-4">{{ data.iconName || 'info' }}</mat-icon>
+</div>
+
+<h2 mat-dialog-title class="text-center">{{data.title}}</h2>
+
+<mat-dialog-content class="text-center">
+  <p>{{data.message}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions class="">
+  <button mat-button (click)="cancel()">{{ data.cancelText || 'Cancelar'}}</button>
+  <button mat-flat-button (click)="confirm()">{{ data.confirmText || 'Confirmar' }}</button>
+</mat-dialog-actions>

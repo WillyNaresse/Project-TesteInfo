@@ -1,27 +1,59 @@
 # TesteInfo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+Este projeto foi gerado com o [Angular CLI](https://github.com/angular/angular-cli) versão 18.2.12.
 
-## Development server
+O ambiente de desenvolvimento foi configurado para executar front-end e o back-end mockado (json-server) simultaneamente através de um script customizado (npm run dev), facilitando o setup e o desenvolvimento local. O mesmo não possui testes unitários.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Pré-requisitos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Antes de iniciar, certifique-se de ter instalado em sua máquina:
 
-## Build
+- Node.js (versão LTS recomendada)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- npm (instalado junto com o Node.js)
 
-## Running unit tests
+- Angular CLI (opcional, mas recomendado)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Como rodar o projeto (Desenvolvimento)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Etapa 1 — Instalar as dependências
 
-## Further help
+Na raiz do projeto, execute `npm install`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Esse comando irá instalar todas as dependências necessárias para o front-end e para o back-end.
+
+- Etapa 2 — Executar o projeto
+
+Para iniciar o ambiente de desenvolvimento, utilize `npm run dev`
+
+Esse comando executa a aplicação Angular e o back-end mock utilizando json-server
+
+
+## Endereços da aplicação
+
+Após iniciar o projeto, os serviços estarão disponíveis em `http://localhost:4200/` (Angular) e `http://localhost:3000/` (json-server)
+
+O back-end utiliza o json-server com o arquivo db.json, localizado na raiz do projeto, servindo como base de dados mock para a aplicação.
+
+
+## Criação de código (Scaffolding)
+
+Para gerar novos artefatos utilizando o Angular CLI, digite `ng generate component nome-do-componente`
+
+Outros exemplos: `ng generate directive|pipe|service|class|guard|interface|enum|module`
+
+
+## Build do projeto
+
+Para gerar a build de produção, `ng build`
+
+Os arquivos compilados serão armazenados no diretório `dist/`
+
+
+## Ajuda adicional
+
+Para mais informações sobre o Angular CLI, `ng help` ou consulte a [documentação oficial](https://angular.dev/tools/cli)
+
+Para qualquer outro tipo de dúvida, ajuda ou feedback sobre esta aplicação, entrar em contato através do e-mail willnaresse@gmail.com.

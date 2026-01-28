@@ -1,10 +1,97 @@
-<div class="flex items-center justify-center text-center w-full gap-4">
-  <img src="images/car-add.png" alt="Logo de um carro com um símbolo de '+'" class="w-24 cursor-pointer" [routerLink]="['/registry']">
-  <span class="text-gray-500 text-lg">
-    Não há veículos cadastrados.
-    <a
-      class="text-blue-500 hover:text-blue-600 underline cursor-pointer transition-colors"
-      [routerLink]="['/registry']"
-    >Clique aqui</a> para realizar o cadastro.
-  </span>
+<div class="row align-items-center justify-content-center text-center w-100">
+  @if (isLoadingVehicles && !vehicles.data.length) {
+    <div class="w-100 d-flex justify-content-center">
+      <mat-progress-spinner
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+  } @else if (!isLoadingVehicles && !vehicles.data.length) {
+    <div class="col-12 col-md-auto d-flex justify-content-center">
+      <img
+        src="images/car-add.png"
+        alt="Logo de um carro com um símbolo de '+'"
+        class="empty-icon"
+        [routerLink]="['/registry']"
+        role="button"
+      >
+    </div>
+
+    <div class="col-12 col-md-6">
+      <span class="text-secondary fs-5 mx-4">
+        Não há veículos cadastrados.
+        <a class="register-link" [routerLink]="['/registry']">Clique aqui</a>
+        para realizar o cadastro.
+      </span>
+    </div>
+  } @else if (!isLoadingVehicles && vehicles) {
+    <div class="table-wrapper">
+      <div class="w-100 d-flex justify-content-between align-items-center pt-1">
+        <mat-form-field appearance="outline">
+          <mat-label>Filtrar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Digite para filtrar" #input class="w-25">
+        </mat-form-field>
+
+        <button mat-raised-button [routerLink]="['/registry']"><mat-icon>add</mat-icon> Novo</button>
+      </div>
+
+      <table mat-table [dataSource]="vehicles" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.brand}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.model}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ano </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="plateNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Placa </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.plateNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="renavam">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> RENAVAM </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.renavam}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Chassi </th>
+          <td mat-cell *matCellDef="let vehicle"> {{vehicle.vin}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Ações </th>
+          <td mat-cell *matCellDef="let vehicle">
+            <mat-icon title="Editar" class="edit-icon m-1" role="button" (click)="editVehicle(vehicle.id)">edit</mat-icon>
+            <mat-icon title="Excluir" class="delete-icon m-1" role="button" (click)="deleteVehicle(vehicle.id)">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Dados não encontrados para "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSize]="5"
+        [pageSizeOptions]="[5, 10, 25]"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  }
 </div>

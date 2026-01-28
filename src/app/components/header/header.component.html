@@ -1,20 +1,28 @@
-<header class="flex justify-between items-center px-12">
-  <img src="images/info-logo.png" alt="Logo da Info" class="w-24 cursor-pointer" [routerLink]="['']">
+<header class="d-flex justify-content-between align-items-center px-5">
+  <img
+    src="images/info-logo.png"
+    alt="Logo da Info"
+    class="logo"
+    [routerLink]="['']"
+    role="button"
+  >
 
-  <div class="text-white flex gap-8 font-semibold text-xl">
+  <div class="d-flex gap-3 fw-semibold fs-5 text-white">
     <span
-      class="cursor-pointer transition-all duration-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500"
+      class="nav-link"
       [routerLink]="['/']"
-      routerLinkActive="text-blue-500"
+      routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
+      role="button"
     >
       HOME
     </span>
 
     <span
-      class="cursor-pointer transition-all duration-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500"
+      class="nav-link"
       [routerLink]="['/registry']"
-      routerLinkActive="text-blue-500"
+      routerLinkActive="active"
+      role="button"
     >
       CADASTRO
     </span>

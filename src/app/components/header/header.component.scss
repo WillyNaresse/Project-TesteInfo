@@ -1,0 +1,17 @@
+img {
+  width: 6rem;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--bs-primary);
+}
+
+.nav-link.active {
+  color: var(--bs-primary);
+  border-bottom-color: var(--bs-primary);
+}

@@ -2,3 +2,37 @@
   flex: 1;
   display: flex;
 }
+
+mat-icon {
+  transition: 0.3s;
+}
+
+mat-paginator {
+  box-shadow: var(--mat-app-elevation-shadow-level-8, none);
+  margin-bottom: 8px;
+}
+
+.table-wrapper {
+  width: 100%;
+  max-width: 75%;
+  margin: 3rem 1rem;
+  overflow-x: auto;
+}
+
+img.empty-icon {
+  width: 6rem;
+}
+
+.register-link {
+  color: var(--bs-primary);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: var(--bs-info);
+}
+
+.delete-icon:hover {
+  color: var(--bs-danger);
+}
