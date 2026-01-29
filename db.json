@@ -1,238 +1,67 @@
 {
   "vehicles": [
     {
-      "id": "1b02",
-      "model": "Celta",
+      "model": "FUSCA",
       "brand": "Chevrolet",
-      "year": 2012,
-      "plateNumber": "DEF5678",
+      "year": 2026,
+      "plateNumber": "DEF5676",
       "renavam": "98765432102",
-      "vin": "GM12345678900002"
+      "vin": "GM123456789000022",
+      "id": "1b02"
     },
     {
-      "id": "1b05",
-      "model": "HB20",
-      "brand": "Hyundai",
-      "year": 2019,
-      "plateNumber": "MNO7890",
-      "renavam": "98765432105",
-      "vin": "HY12345678900005"
+      "model": "Gol",
+      "brand": "Volkswagen",
+      "year": 2015,
+      "plateNumber": "GHI4321",
+      "renavam": "23456789012",
+      "vin": "9BWZZZ377VT004251",
+      "id": "b7c9"
     },
     {
-      "id": "1b06",
+      "model": "Uno",
+      "brand": "Fiat",
+      "year": 2014,
+      "plateNumber": "JKL8J65",
+      "renavam": "34567890123",
+      "vin": "9BD27809MD1237890",
+      "id": "c3d8"
+    },
+    {
       "model": "Corolla",
       "brand": "Toyota",
-      "year": 2020,
-      "plateNumber": "PQR1122",
-      "renavam": "98765432106",
-      "vin": "TY12345678900006"
+      "year": 2018,
+      "plateNumber": "PQR6789",
+      "renavam": "56789012345",
+      "vin": "9BRBD48E0J2012345",
+      "id": "e4a6"
     },
     {
-      "id": "1b07",
       "model": "Civic",
       "brand": "Honda",
       "year": 2017,
-      "plateNumber": "STU3344",
-      "renavam": "98765432107",
-      "vin": "HO12345678900007"
+      "plateNumber": "STU9012",
+      "renavam": "67890123456",
+      "vin": "93HFC1650HZ123456",
+      "id": "f8b2"
     },
     {
-      "id": "1b08",
       "model": "Ka",
       "brand": "Ford",
       "year": 2016,
-      "plateNumber": "VWX5566",
-      "renavam": "98765432108",
-      "vin": "FO12345678900008"
+      "plateNumber": "VWX2A45",
+      "renavam": "78901234567",
+      "vin": "9BFZD55P0G8123456",
+      "id": "g0c7"
     },
     {
-      "id": "1b09",
-      "model": "Sandero",
-      "brand": "Renault",
-      "year": 2015,
-      "plateNumber": "YZA7788",
-      "renavam": "98765432109",
-      "vin": "RE12345678900009"
-    },
-    {
-      "id": "1b10",
-      "model": "Logan",
-      "brand": "Renault",
-      "year": 2014,
-      "plateNumber": "BCD9900",
-      "renavam": "98765432110",
-      "vin": "RE12345678900010"
-    },
-    {
-      "id": "1b11",
-      "model": "Etios",
-      "brand": "Toyota",
-      "year": 2016,
-      "plateNumber": "EFG1123",
-      "renavam": "98765432111",
-      "vin": "TY12345678900011"
-    },
-    {
-      "id": "1b12",
-      "model": "Cruze",
-      "brand": "Chevrolet",
-      "year": 2019,
-      "plateNumber": "HIJ4455",
-      "renavam": "98765432112",
-      "vin": "GM12345678900012"
-    },
-    {
-      "id": "1b13",
-      "model": "Argo",
-      "brand": "Fiat",
-      "year": 2021,
-      "plateNumber": "KLM6677",
-      "renavam": "98765432113",
-      "vin": "FI12345678900013"
-    },
-    {
-      "id": "1b14",
-      "model": "Pulse",
-      "brand": "Fiat",
-      "year": 2022,
-      "plateNumber": "NOP8899",
-      "renavam": "98765432114",
-      "vin": "FI12345678900014"
-    },
-    {
-      "id": "1b15",
-      "model": "Tracker",
-      "brand": "Chevrolet",
-      "year": 2021,
-      "plateNumber": "QRS1010",
-      "renavam": "98765432115",
-      "vin": "GM12345678900015"
-    },
-    {
-      "id": "1b16",
-      "model": "Compass",
-      "brand": "Jeep",
-      "year": 2020,
-      "plateNumber": "TUV2020",
-      "renavam": "98765432116",
-      "vin": "JP12345678900016"
-    },
-    {
-      "id": "1b17",
-      "model": "Renegade",
-      "brand": "Jeep",
-      "year": 2019,
-      "plateNumber": "WXY3030",
-      "renavam": "98765432117",
-      "vin": "JP12345678900017"
-    },
-    {
-      "id": "1b18",
-      "model": "Duster",
-      "brand": "Renault",
-      "year": 2018,
-      "plateNumber": "ZAB4040",
-      "renavam": "98765432118",
-      "vin": "RE12345678900018"
-    },
-    {
-      "id": "1b19",
-      "model": "EcoSport",
-      "brand": "Ford",
-      "year": 2017,
-      "plateNumber": "CDE5050",
-      "renavam": "98765432119",
-      "vin": "FO12345678900019"
-    },
-    {
-      "id": "1b20",
-      "model": "Fusion",
-      "brand": "Ford",
-      "year": 2016,
-      "plateNumber": "FGH6060",
-      "renavam": "98765432120",
-      "vin": "FO12345678900020"
-    },
-    {
-      "id": "1b21",
-      "model": "Sentra",
-      "brand": "Nissan",
-      "year": 2019,
-      "plateNumber": "IJK7070",
-      "renavam": "98765432121",
-      "vin": "NI12345678900021"
-    },
-    {
-      "id": "1b22",
-      "model": "Versa",
-      "brand": "Nissan",
-      "year": 2020,
-      "plateNumber": "LMN8080",
-      "renavam": "98765432122",
-      "vin": "NI12345678900022"
-    },
-    {
-      "id": "1b23",
-      "model": "City",
-      "brand": "Honda",
-      "year": 2021,
-      "plateNumber": "OPQ9090",
-      "renavam": "98765432123",
-      "vin": "HO12345678900023"
-    },
-    {
-      "id": "1b24",
-      "model": "Fit",
-      "brand": "Honda",
-      "year": 2018,
-      "plateNumber": "RST1111",
-      "renavam": "98765432124",
-      "vin": "HO12345678900024"
-    },
-    {
-      "id": "1b25",
-      "model": "Polo",
-      "brand": "Volkswagen",
-      "year": 2019,
-      "plateNumber": "UVW2222",
-      "renavam": "98765432125",
-      "vin": "VW12345678900025"
-    },
-    {
-      "id": "1b26",
-      "model": "Virtus",
-      "brand": "Volkswagen",
-      "year": 2020,
-      "plateNumber": "XYZ3333",
-      "renavam": "98765432126",
-      "vin": "VW12345678900026"
-    },
-    {
-      "id": "1b27",
-      "model": "Jetta",
-      "brand": "Volkswagen",
-      "year": 2018,
-      "plateNumber": "AAA4444",
-      "renavam": "98765432127",
-      "vin": "VW12345678900027"
-    },
-    {
-      "id": "1b28",
-      "model": "T-Cross",
-      "brand": "Volkswagen",
-      "year": 2021,
-      "plateNumber": "BBB5555",
-      "renavam": "98765432128",
-      "vin": "VW12345678900028"
-    },
-    {
-      "id": "1b29",
-      "model": "Kwid",
-      "brand": "Renault",
-      "year": 2022,
-      "plateNumber": "CCC6666",
-      "renavam": "98765432129",
-      "vin": "RE12345678900029"
+      "model": "Fusca",
+      "brand": "VOLKSWAGEN",
+      "year": 1978,
+      "plateNumber": "AOF6398",
+      "renavam": "43546345466",
+      "vin": "VFS234423G542352A",
+      "id": "a044"
     }
   ]
 }

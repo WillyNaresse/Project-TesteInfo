@@ -32,23 +32,23 @@ export class VehicleService {
     return this.http.delete<void>(`${this.API}/${id}`)
   }
 
-  getMetadata(): Observable<VehicleMetadata> {
-    return this.getAll().pipe(
-      map(vehicles => {
-        const vehicleMetadata: VehicleMetadata = {
-          brands: [],
-          models: []
-        }
-        vehicles.forEach(vehicle => {
-          vehicleMetadata.brands.push(vehicle.brand)
-          vehicleMetadata.models.push(vehicle.model)
-        })
+getMetadata(): Observable<VehicleMetadata> {
+  return this.getAll().pipe(
+    map(vehicles => {
+      const brandsSet = new Set<string>();
+      const modelsSet = new Set<string>();
 
-        vehicleMetadata.brands.sort()
-        vehicleMetadata.models.sort()
+      vehicles.forEach(vehicle => {
+        brandsSet.add(vehicle.brand.trim().toUpperCase());
+        modelsSet.add(vehicle.model.trim().toUpperCase());
+      });
 
-        return vehicleMetadata
-      })
-    )
-  }
+      return {
+        brands: Array.from(brandsSet).sort(),
+        models: Array.from(modelsSet).sort()
+      };
+    })
+  );
+}
+
 }

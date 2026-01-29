@@ -7,9 +7,8 @@ mat-icon {
   transition: 0.3s;
 }
 
-mat-paginator {
-  box-shadow: var(--mat-app-elevation-shadow-level-8, none);
-  margin-bottom: 8px;
+table {
+  box-shadow: none;
 }
 
 .table-wrapper {
@@ -17,6 +16,7 @@ mat-paginator {
   max-width: 75%;
   margin: 3rem 1rem;
   overflow-x: auto;
+  background: #FAF9FD;
 }
 
 img.empty-icon {

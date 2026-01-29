@@ -10,13 +10,14 @@ import {
   MatDialogModule
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { Icons } from '../../models/icons.type';
 
 interface DialogData {
   title: string;
   message: string;
   confirmText?: string;
   cancelText?: string;
-  iconName?: string;
+  iconName?: Icons;
 }
 
 @Component({

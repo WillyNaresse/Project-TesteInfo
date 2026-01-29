@@ -1,7 +1,7 @@
 <form
   [formGroup]="form"
   (ngSubmit)="submit()"
-  class="d-flex flex-column gap-2 mx-3 mx-sm-4 vehicle-form"
+  class="d-flex flex-column gap-2 mx-3 mx-sm-4 custom-card"
 >
   <h4 class="text-center"> {{ isEditting ? 'Editar veículo' : 'Cadastrar veículo' }}</h4>
 
@@ -16,6 +16,9 @@
           formControlName="brand"
           [matAutocomplete]="brandAutocomplete"
         >
+        @if (form.controls.brand.invalid && form.controls.brand.touched) {
+          <mat-error>A marca é obrigatória.</mat-error>
+        }
         <mat-autocomplete #brandAutocomplete="matAutocomplete">
           @for (option of filteredBrands | async; track option) {
             <mat-option [value]="option">{{ option }}</mat-option>
@@ -34,6 +37,9 @@
           formControlName="model"
           [matAutocomplete]="modelAutocomplete"
         >
+        @if (form.controls.model.invalid && form.controls.model.touched) {
+          <mat-error>O modelo é obrigatório.</mat-error>
+        }
         <mat-autocomplete #modelAutocomplete="matAutocomplete">
           @for (option of filteredModels | async; track option) {
             <mat-option [value]="option">{{ option }}</mat-option>
@@ -52,21 +58,12 @@
           formControlName="year"
           mask="0000"
         >
-      </mat-form-field>
-    </div>
-
-    <div class="col-12 col-md-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Placa</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Insira a placa"
-          formControlName="plateNumber"
-          mask="SSS-0A00"
-          [inputTransformFn]="inputTransformFn"
-          [outputTransformFn]="outputTransformFn"
-        >
+        @if (form.controls.year.hasError('required') && form.controls.year.touched) {
+          <mat-error>O ano é obrigatório.</mat-error>
+        }
+        @if (form.controls.year.invalid && !form.controls.year.hasError('required') && form.controls.year.touched) {
+          <mat-error>Ano inválido.</mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -80,6 +77,12 @@
           formControlName="renavam"
           mask="00000000000"
         >
+        @if (form.controls.renavam.hasError('required') && form.controls.renavam.touched) {
+          <mat-error>O RENAVAM é obrigatório.</mat-error>
+        }
+        @if (form.controls.renavam.invalid && !form.controls.renavam.hasError('required') && form.controls.renavam.touched) {
+          <mat-error>O RENAVAM deve conter 11 dígitos.</mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -95,6 +98,33 @@
           [inputTransformFn]="inputTransformFn"
           [outputTransformFn]="outputTransformFn"
         >
+        @if (form.controls.vin.hasError('required') && form.controls.vin.touched) {
+          <mat-error>O Chassi é obrigatório.</mat-error>
+        }
+        @if (form.controls.vin.invalid && !form.controls.vin.hasError('required') && form.controls.vin.touched) {
+          <mat-error>O Chassi deve conter 17 caracteres.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Placa</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Insira a placa"
+          formControlName="plateNumber"
+          mask="SSS-0A00"
+          [inputTransformFn]="inputTransformFn"
+          [outputTransformFn]="outputTransformFn"
+        >
+        @if (form.controls.plateNumber.hasError('required') && form.controls.plateNumber.touched) {
+          <mat-error>A placa é obrigatória.</mat-error>
+        }
+        @if (form.controls.plateNumber.invalid && !form.controls.plateNumber.hasError('required') && form.controls.plateNumber.touched) {
+          <mat-error>A placa deve conter 7 caracteres além da vírgula.</mat-error>
+        }
       </mat-form-field>
     </div>
   </div>

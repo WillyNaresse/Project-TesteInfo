@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { Observable, startWith, map, finalize } from 'rxjs';
+import { Observable, startWith, map, finalize, Subscription } from 'rxjs';
 import { provideNgxMask, NgxMaskDirective } from 'ngx-mask';
 import { VehicleService } from '../../services/vehicle.service';
 import { VehicleMetadata } from '../../models/vehicle.model';
@@ -21,17 +21,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './registry.component.html',
   styleUrl: './registry.component.scss'
 })
-export class RegistryComponent implements OnInit {
+export class RegistryComponent implements OnInit, OnDestroy {
   currentYear = new Date().getFullYear();
 
   form = new FormGroup({
     model: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)],
+      validators: [Validators.required],
     }),
     brand: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)],
+      validators: [Validators.required],
     }),
     year: new FormControl<string>('', {
       nonNullable: true,
@@ -51,7 +51,6 @@ export class RegistryComponent implements OnInit {
     }),
   });
 
-
   filteredModels!: Observable<string[]>;
   filteredBrands!: Observable<string[]>;
 
@@ -60,6 +59,8 @@ export class RegistryComponent implements OnInit {
   isEditting: boolean = false;
   isLoadingSubmit: boolean = false;
   vehicleId: string | null = null;
+
+  subscription: Subscription = new Subscription();
 
   constructor(private vehicleService: VehicleService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) {}
 
@@ -73,36 +74,50 @@ export class RegistryComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   private loadVehicleData(id: string): void {
-    this.vehicleService.getById(id).subscribe(vehicle => {
-      this.form.patchValue({
-        ...vehicle,
-        year: String(vehicle.year)
+    this.subscription.add(
+      this.vehicleService.getById(id).subscribe({
+        next: vehicle => {
+          this.form.patchValue({
+            ...vehicle,
+            year: String(vehicle.year)
+          })
+        },
+        error: err => {
+          this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
+          console.error(err);
+        }
       })
-    })
+    )
 
     this.isEditting = true
   }
 
   private getMetadata() {
-    this.vehicleService.getMetadata().subscribe({
-      next: vehicleMetadata => {
-        this.vehicleMetadata = vehicleMetadata
+    this.subscription.add(
+      this.vehicleService.getMetadata().subscribe({
+        next: vehicleMetadata => {
+          this.vehicleMetadata = vehicleMetadata
 
-        this.filteredModels = this.createAutocomplete(
-          this.form.controls.model,
-          this.vehicleMetadata.models
-        );
+          this.filteredModels = this.createAutocomplete(
+            this.form.controls.model,
+            this.vehicleMetadata.models
+          );
 
-        this.filteredBrands = this.createAutocomplete(
-          this.form.controls.brand,
-          this.vehicleMetadata.brands
-        );
-      },
-      error: err => {
-        console.error(err);
-      }
-    })
+          this.filteredBrands = this.createAutocomplete(
+            this.form.controls.brand,
+            this.vehicleMetadata.brands
+          );
+        },
+        error: err => {
+          console.error(err);
+        }
+      })
+    )
   }
 
   private createAutocomplete(
@@ -139,20 +154,22 @@ export class RegistryComponent implements OnInit {
 
     this.isLoadingSubmit = true
 
-    submitRequest.pipe(
-      finalize(() => {
-        this.isLoadingSubmit = false
+    this.subscription.add(
+      submitRequest.pipe(
+        finalize(() => {
+          this.isLoadingSubmit = false
+        })
+      ).subscribe({
+        next: () => {
+          this.toastr.success(`Veículo ${this.isEditting ? 'atualizado' : 'cadastrado'}.`, '', { timeOut: 4000})
+          this.router.navigate(['/'])
+        },
+        error: err => {
+          this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
+          console.error(err)
+        }
       })
-    ).subscribe({
-      next: () => {
-        this.toastr.success(`Veículo ${this.isEditting ? 'atualizado' : 'cadastrado'} com sucesso!`, '', { timeOut: 4000})
-        this.router.navigate(['/'])
-      },
-      error: err => {
-        this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
-        console.error(err)
-      }
-    })
+    )
   }
 
   public inputTransformFn = (value: unknown): string =>

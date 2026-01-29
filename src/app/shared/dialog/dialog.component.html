@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-center mt-4">
-  <mat-icon class="fs-4">{{ data.iconName || 'info' }}</mat-icon>
+  <img [src]="'images/icons/' + (data.iconName || 'info') + '.png'"
+       [alt]="'Ícone de' + (data.iconName || 'info')">
 </div>
 
 <h2 mat-dialog-title class="text-center">{{data.title}}</h2>

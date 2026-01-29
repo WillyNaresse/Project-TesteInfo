@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { Vehicle } from '../../models/vehicle.model';
 import { ToastrService } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -13,21 +13,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButton } from "@angular/material/button";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTooltip } from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, MatProgressSpinnerModule, MatTableModule, MatIconModule, MatSortModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatButton],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  imports: [RouterLink, MatProgressSpinnerModule, MatTableModule, MatIconModule, MatSortModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatTooltip],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
 })
-export class HomeComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'model', 'brand', 'year', 'plateNumber', 'renavam', 'vin', 'actions'];
+export class DashboardComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['model', 'brand', 'year', 'plateNumber', 'renavam', 'vin', 'actions'];
 
   vehicles = new MatTableDataSource<Vehicle>([]);
 
   isLoadingVehicles: boolean = false;
+
+  subscription: Subscription = new Subscription();
 
   @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator) {
     if (paginator) {
@@ -47,6 +50,10 @@ export class HomeComponent implements OnInit {
     this.getAllVehicles()
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.vehicles.filter = filterValue.trim().toLowerCase();
@@ -59,19 +66,21 @@ export class HomeComponent implements OnInit {
   private getAllVehicles(): void {
     this.isLoadingVehicles = true
 
-    this.vehicleService.getAll().pipe(
-      finalize(() => {
-        this.isLoadingVehicles = false
+    this.subscription.add(
+      this.vehicleService.getAll().pipe(
+        finalize(() => {
+          this.isLoadingVehicles = false
+        })
+      ).subscribe({
+        next: vehicles => {
+          this.vehicles.data = vehicles;
+        },
+        error: err => {
+          this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
+          console.error(err)
+        }
       })
-    ).subscribe({
-      next: vehicles => {
-        this.vehicles.data = vehicles;
-      },
-      error: err => {
-        this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
-        console.error(err)
-      }
-    });
+    )
   }
 
   editVehicle(id: string): void {
@@ -92,16 +101,18 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.vehicleService.delete(id).subscribe({
-          next: () => {
-            this.toastr.success('Veículo excluido.', '', { timeOut: 4000})
-            this.getAllVehicles()
-          },
-          error: err => {
-            this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
-            console.error(err)
-          }
-        })
+        this.subscription.add(
+          this.vehicleService.delete(id).subscribe({
+            next: () => {
+              this.toastr.success('Veículo excluído.', '', { timeOut: 4000})
+              this.getAllVehicles()
+            },
+            error: err => {
+              this.toastr.error('Algo deu errado. Tente novamente em instantes.', 'Oh-ohh!', { timeOut: 4000})
+              console.error(err)
+            }
+          })
+        )
       }
     });
   }
